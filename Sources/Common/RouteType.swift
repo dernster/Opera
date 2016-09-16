@@ -39,7 +39,7 @@ public protocol RouteType: URLRequestConvertible {
     /// Used to specify the way in which a set of parameters are applied to a URL request. Default implementation returns .JSON when method value is either .POST, .PUT or .PATCH. Otherwise .URL.
     var encoding: Alamofire.ParameterEncoding { get }
     /// Base url
-    var baseURL: NSURL { get }
+    var baseURL: URL { get }
     /// Manager that creates the request.
     var manager: ManagerType { get }
     /// Used to determine how often a request should be retried if unsuccessful
@@ -50,21 +50,21 @@ public protocol RouteType: URLRequestConvertible {
  *  By adopting URLRequestSetup a RequestType or PaginationRequstType is able to customize it right before sending it to the server.
  */
 public protocol URLRequestSetup {
-    func urlRequestSetup(urlRequest: NSMutableURLRequest)
+    func urlRequestSetup(_ urlRequest: NSMutableURLRequest)
 }
 
 /**
  *  By adopting URLRequestParametersSetup a RequestType or PaginationRequstType is able to make a final customization to request parameters dictionary before they are encoded.
  */
 public protocol URLRequestParametersSetup {
-    func urlRequestParametersSetup(urlRequest: NSMutableURLRequest, parameters: [String: AnyObject]?) -> [String: AnyObject]?
+    func urlRequestParametersSetup(_ urlRequest: NSMutableURLRequest, parameters: [String: AnyObject]?) -> [String: AnyObject]?
 }
 
 extension RouteType {
     
     /// The URL request.
     public var URLRequest: NSMutableURLRequest {
-        var mutableURLRequest = NSMutableURLRequest(URL: baseURL.URLByAppendingPathComponent(path))
+        var mutableURLRequest = NSMutableURLRequest(url: baseURL.appendingPathComponent(path))
         mutableURLRequest.HTTPMethod = method.rawValue
         let params = (self as? URLRequestParametersSetup)?.urlRequestParametersSetup(mutableURLRequest, parameters: parameters) ?? parameters
         mutableURLRequest = encoding.encode(mutableURLRequest, parameters: params).0

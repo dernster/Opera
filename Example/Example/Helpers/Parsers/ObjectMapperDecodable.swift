@@ -29,7 +29,7 @@ import ObjectMapper
 
 extension Mappable where Self: OperaDecodable {
     
-    static func decode(json: AnyObject) throws -> Self {
+    static func decode(_ json: AnyObject) throws -> Self {
         guard let jsonData = json as? [String: AnyObject] else { throw Error.Parsing(error: "Data is not JSON formatted", request: nil, response: nil, json: json) }
         let map = Map(mappingType: MappingType.FromJSON, JSONDictionary: jsonData, toObject: true)
         if var decoded = Self.init(map) {
@@ -42,5 +42,5 @@ extension Mappable where Self: OperaDecodable {
     
 }
 
-extension String: ErrorType {
+extension String: Error {
 }

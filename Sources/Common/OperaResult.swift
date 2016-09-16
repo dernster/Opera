@@ -45,7 +45,7 @@ extension OperaResult {
      
      - returns: The serialized object or an error.
      */
-    public func serializeObject<T: OperaDecodable>(keyPath: String? = nil) -> Response<T, Error> {
+    public func serializeObject<T: OperaDecodable>(_ keyPath: String? = nil) -> Response<T, Error> {
         switch result {
         case let .Success(value):
             let result = OperaResult.serialize(nil, response: value.response, data: value.data, error: nil, onSuccess: { (result, json) -> Result<T, Error> in
@@ -76,7 +76,7 @@ extension OperaResult {
      
      - returns: The serialized objects or an error.
      */
-    public func serializeCollection<T: OperaDecodable>(collectionKeyPath: String? = nil) -> Response<[T], Error>  {
+    public func serializeCollection<T: OperaDecodable>(_ collectionKeyPath: String? = nil) -> Response<[T], Error>  {
         switch result {
         case let .Success(value):
             let result = OperaResult.serialize(nil, response: value.response, data: value.data, error: nil, onSuccess: { (result, json) -> Result<[T], Error> in
@@ -125,9 +125,9 @@ extension OperaResult {
         }
     }
     
-    private static func serialize<T>(request: NSURLRequest?,
-                                  response: NSHTTPURLResponse?,
-                                  data: NSData?,
+    fileprivate static func serialize<T>(_ request: URLRequest?,
+                                  response: HTTPURLResponse?,
+                                  data: Data?,
                                   error: NSError?,
                                   onSuccess: (Result<AnyObject, NSError>, AnyObject) -> Result<T, Error>)
         -> Result<T, Error> {

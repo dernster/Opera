@@ -39,7 +39,7 @@ extension Branch: OperaDecodable, Mappable {
         
     }
     
-    mutating func mapping(map: Map) {
+    mutating func mapping(_ map: Map) {
         name    <- map["name"]
         commit  <- map["commit.sha"]
     }

@@ -43,7 +43,7 @@ class RepositoryContributionsController: RepositoryBaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.keyboardDismissMode = .OnDrag
+        tableView.keyboardDismissMode = .onDrag
         tableView.addSubview(self.refreshControl)
         emptyStateLabel.text = "No contributors found"
         let refreshControl = self.refreshControl

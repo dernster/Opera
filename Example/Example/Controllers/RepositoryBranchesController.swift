@@ -43,7 +43,7 @@ class RepositoryBranchesController: RepositoryBaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.keyboardDismissMode = .OnDrag
+        tableView.keyboardDismissMode = .onDrag
         tableView.addSubview(self.refreshControl)
         emptyStateLabel.text = "No branches found"
         let refreshControl = self.refreshControl

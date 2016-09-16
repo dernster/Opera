@@ -390,9 +390,11 @@
 				TargetAttributes = {
 					28F828CB1C4B714D00330CF4 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 					};
 					28F828DF1C4B714D00330CF4 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 						TestTargetID = 28F828CB1C4B714D00330CF4;
 					};
 				};
@@ -696,6 +698,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xmartlabs.Example;
 				PRODUCT_NAME = "Example-iOS";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -713,6 +716,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xmartlabs.Example;
 				PRODUCT_NAME = "Example-iOS";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -725,6 +729,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.xmartlabs.ExampleUITests;
 				PRODUCT_NAME = "Example-iOS";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Example;
 				USES_XCTRUNNER = YES;
 			};
@@ -738,6 +743,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xmartlabs.ExampleUITests;
 				PRODUCT_NAME = "Example-iOS";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Example;
 				USES_XCTRUNNER = YES;
 			};

@@ -30,20 +30,20 @@ import RxCocoa
 
 private enum SortFilter: Int, CustomStringConvertible, FilterType {
     
-    case Open = 0
-    case Closed
-    case All
+    case open = 0
+    case closed
+    case all
     
     var description: String {
         switch self {
-        case .Open: return "open"
-        case .Closed: return "closed"
-        case .All: return "all"
+        case .open: return "open"
+        case .closed: return "closed"
+        case .all: return "all"
         }
     }
     
     var parameters: [String: AnyObject]? {
-        return ["state":"\(self)"]
+        return ["state":"\(self)" as AnyObject]
     }
     
 }
@@ -57,7 +57,7 @@ class RepositoryPullRequestsController: RepositoryBaseController {
     
     var disposeBag = DisposeBag()
     
-    private var filter = SortFilter.Open
+    fileprivate var filter = SortFilter.open
     
     lazy var viewModel: PaginationViewModel<PaginationRequest<PullRequest>> = { [unowned self] in
         return PaginationViewModel(paginationRequest: PaginationRequest(route: GithubAPI.Repository.GetPullRequests(owner: self.owner, repo: self.name), filter: self.filter))
@@ -66,7 +66,7 @@ class RepositoryPullRequestsController: RepositoryBaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.keyboardDismissMode = .OnDrag
+        tableView.keyboardDismissMode = .onDrag
         tableView.addSubview(self.refreshControl)
         emptyStateLabel.text = "No pull requests found"
         let refreshControl = self.refreshControl

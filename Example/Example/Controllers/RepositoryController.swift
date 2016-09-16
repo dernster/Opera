@@ -70,8 +70,8 @@ class RepositoryController: UITableViewController {
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        guard let _ = segue.identifier, vc = segue.destinationViewController as? RepositoryBaseController else { return }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let _ = segue.identifier, let vc = segue.destination as? RepositoryBaseController else { return }
         vc.name = name
         vc.owner = owner
     }

@@ -36,10 +36,10 @@ class SearchRepositoriesController: UIViewController {
     
     var disposeBag = DisposeBag()
     
-    private lazy var emptyStateLabel: UILabel = {
+    fileprivate lazy var emptyStateLabel: UILabel = {
         let emptyStateLabel = UILabel()
         emptyStateLabel.text = Constants.noTextMessage
-        emptyStateLabel.textAlignment = .Center
+        emptyStateLabel.textAlignment = .center
         return emptyStateLabel
     }()
     
@@ -51,7 +51,7 @@ class SearchRepositoriesController: UIViewController {
         super.viewDidLoad()
         
         tableView.backgroundView = emptyStateLabel
-        tableView.keyboardDismissMode = .OnDrag
+        tableView.keyboardDismissMode = .onDrag
         tableView.addSubview(self.refreshControl)
         let refreshControl = self.refreshControl
         
@@ -115,8 +115,8 @@ class SearchRepositoriesController: UIViewController {
             .addDisposableTo(disposeBag)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        guard let identifier = segue.identifier, vc = segue.destinationViewController as? RepositoryController, data = sender as? RepositoryData where identifier == Constants.repositorySegue else { return }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier, let vc = segue.destination as? RepositoryController, let data = sender as? RepositoryData , identifier == Constants.repositorySegue else { return }
         vc.name = data.name
         vc.owner = data.owner
     }
@@ -125,7 +125,7 @@ class SearchRepositoriesController: UIViewController {
 
 extension SearchRepositoriesController {
     
-    private struct Constants {
+    fileprivate struct Constants {
         static let noTextMessage = "Enter text to search repositories"
         static let noRepositoriesMessage = "No repositories found"
         static let repositorySegue = "Show repository"

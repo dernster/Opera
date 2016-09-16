@@ -30,20 +30,20 @@ import RxCocoa
 
 private enum SortFilter: Int, CustomStringConvertible, FilterType {
     
-    case Newest = 0
-    case Oldest
-    case Stargazers
+    case newest = 0
+    case oldest
+    case stargazers
     
     var description: String {
         switch self {
-        case .Newest: return "newest"
-        case .Oldest: return "oldest"
-        case .Stargazers: return "stargazers"
+        case .newest: return "newest"
+        case .oldest: return "oldest"
+        case .stargazers: return "stargazers"
         }
     }
     
     var parameters: [String: AnyObject]? {
-        return ["sort":"\(self)"]
+        return ["sort":"\(self)" as AnyObject]
     }
     
 }
@@ -58,7 +58,7 @@ class RepositoryForksController: RepositoryBaseController {
     
     var disposeBag = DisposeBag()
     
-    private var filter = SortFilter.Newest
+    fileprivate var filter = SortFilter.newest
     
     lazy var viewModel: PaginationViewModel<PaginationRequest<UserRepository>> = { [unowned self] in
         return PaginationViewModel(paginationRequest: PaginationRequest(route: GithubAPI.Repository.GetForks(owner: self.owner, repo: self.name), filter: self.filter))
@@ -67,7 +67,7 @@ class RepositoryForksController: RepositoryBaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.keyboardDismissMode = .OnDrag
+        tableView.keyboardDismissMode = .onDrag
         emptyStateLabel.text = "No forks found"
         tableView.addSubview(self.refreshControl)
         let refreshControl = self.refreshControl
@@ -120,8 +120,8 @@ class RepositoryForksController: RepositoryBaseController {
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        guard let _ = segue.identifier, vc = segue.destinationViewController as? RepositoryController, data = sender as? RepositoryData else { return }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let _ = segue.identifier, let vc = segue.destination as? RepositoryController, let data = sender as? RepositoryData else { return }
         vc.name = data.name
         vc.owner = data.owner
     }

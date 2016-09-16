@@ -576,6 +576,7 @@
 				TargetAttributes = {
 					28F8287C1C494B2C00330CF4 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 					};
 					28F828861C494B2C00330CF4 = {
 						CreatedOnToolsVersion = 7.2;
@@ -1047,6 +1048,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Opera;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1069,6 +1071,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Opera;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

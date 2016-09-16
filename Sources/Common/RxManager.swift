@@ -22,7 +22,7 @@ extension RxManager {
      
      - returns: An instance of `Observable<T>`
      */
-    public func rx_object<T: OperaDecodable>(route: RouteType, keyPath: String? = nil) -> Observable<T> {
+    public func rx_object<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Observable<T> {
         return rx_response(route).flatMap { operaResult -> Observable<T> in
             let serialized: Response<T, Error>  = operaResult.serializeObject(keyPath)
             switch serialized.result {
@@ -42,7 +42,7 @@ extension RxManager {
      
      - returns: An instance of `Observable<[T]>`
      */
-    public func rx_collection<T: OperaDecodable>(route: RouteType, collectionKeyPath:String? = nil) -> Observable<[T]> {
+    public func rx_collection<T: OperaDecodable>(_ route: RouteType, collectionKeyPath:String? = nil) -> Observable<[T]> {
         return rx_response(route).flatMap { operaResult -> Observable<[T]> in
             let serialized: Response<[T], Error> = operaResult.serializeCollection(collectionKeyPath)
             switch serialized.result {
@@ -59,7 +59,7 @@ extension RxManager {
      
      - returns: An instance of `Observable<AnyObject>`
      */
-    public func rx_anyObject(route: RouteType) -> Observable<AnyObject> {
+    public func rx_anyObject(_ route: RouteType) -> Observable<AnyObject> {
         return rx_response(route).flatMap { operaResult -> Observable<AnyObject> in
             let serialized = operaResult.serializeAnyObject()
             switch serialized.result {
@@ -74,14 +74,14 @@ extension RxManager {
 }
 
 
-public class RxManager: Opera.Manager {
+open class RxManager: Opera.Manager {
 
     public override init(manager: Alamofire.Manager) {
         super.init(manager: manager)
     }
     
     
-    public func rx_response(requestConvertible: URLRequestConvertible) -> Observable<OperaResult> {
+    open func rx_response(_ requestConvertible: URLRequestConvertible) -> Observable<OperaResult> {
         return Observable.create { subscriber in
             let req = self.response(requestConvertible) { result in
                 switch result.result {

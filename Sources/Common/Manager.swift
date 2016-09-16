@@ -30,20 +30,20 @@ public typealias CompletionHandler = (OperaResult) -> Void
 
 public protocol ObserverType {
     /// Called immediately before a request is sent over the network (or stubbed).
-    func willSendRequest(alamoRequest: Alamofire.Request, requestConvertible: URLRequestConvertible)
+    func willSendRequest(_ alamoRequest: Alamofire.Request, requestConvertible: URLRequestConvertible)
 }
 
 public protocol ManagerType: class {
     var manager: Alamofire.Manager { get }
     var observers: [ObserverType] { get set }
-    func response(requestConvertible: URLRequestConvertible, completion: CompletionHandler) -> Alamofire.Request
+    func response(_ requestConvertible: URLRequestConvertible, completion: CompletionHandler) -> Alamofire.Request
 }
 
 
-public class Manager: ManagerType {
+open class Manager: ManagerType {
     
-    public var observers: [ObserverType]
-    public var manager: Alamofire.Manager
+    open var observers: [ObserverType]
+    open var manager: Alamofire.Manager
     
     
     public init(manager: Alamofire.Manager) {
@@ -61,12 +61,12 @@ public class Manager: ManagerType {
      
      - returns: the request
      */
-    public func response(request: URLRequestConvertible, completion: CompletionHandler) -> Alamofire.Request {
+    open func response(_ request: URLRequestConvertible, completion: CompletionHandler) -> Alamofire.Request {
         return self.retryCallback(request, retryLeft: (request as? RouteType)?.retryCount ??  (request as? BasePaginationRequestType)?.route.retryCount ?? 0, completion: completion)
     }
     
     /// Callback responsible for handling retries
-    public func retryCallback(request: URLRequestConvertible, retryLeft: Int, completion: CompletionHandler) -> Alamofire.Request {
+    open func retryCallback(_ request: URLRequestConvertible, retryLeft: Int, completion: CompletionHandler) -> Alamofire.Request {
         let result = manager.request(request).validate()
         observers.forEach { $0.willSendRequest(result, requestConvertible: request) }
         result.response(){ [weak self] request2, response, data, error in
@@ -86,12 +86,12 @@ public class Manager: ManagerType {
     }
 }
 
-private func toOperaResult(requestConvertible: URLRequestConvertible, response: NSHTTPURLResponse?, data: NSData?, error: NSError?) ->
+private func toOperaResult(_ requestConvertible: URLRequestConvertible, response: HTTPURLResponse?, data: Data?, error: NSError?) ->
     OperaResult {
     switch (response, data, error) {
-    case let (.Some(response), .Some(data), .None):
+    case let (.some(response), .some(data), .none):
         return OperaResult(result: .Success(OperaResponse(statusCode: response.statusCode, data: data, response: response)), requestConvertible: requestConvertible)
-    case let (_, _, .Some(error)):
+    case let (_, _, .some(error)):
         return OperaResult(result: .Failure(.Networking(error: error, request: requestConvertible.URLRequest, response: response, json: data)), requestConvertible: requestConvertible)
     default:
         return OperaResult(result: .Failure(.Networking(error: Alamofire.Error.errorWithCode(0, failureReason: "Unknown error"),

@@ -42,6 +42,6 @@ import Foundation
  *      }
  */
 public protocol OperaDecodable {
-    static func decode(json: AnyObject) throws -> Self
+    static func decode(_ json: AnyObject) throws -> Self
 }
 

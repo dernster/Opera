@@ -43,7 +43,7 @@ class RepositoryStargazersController: RepositoryBaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.keyboardDismissMode = .OnDrag
+        tableView.keyboardDismissMode = .onDrag
         emptyStateLabel.text = "No stargazers found"
         tableView.addSubview(self.refreshControl)
         let refreshControl = self.refreshControl

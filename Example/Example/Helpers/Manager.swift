@@ -43,7 +43,7 @@ class Manager: RxManager {
         return Observable.just(nil)
     }
     
-    override func rx_response(requestConvertible: URLRequestConvertible) -> Observable<OperaResult> {
+    override func rx_response(_ requestConvertible: URLRequestConvertible) -> Observable<OperaResult> {
         let response = super.rx_response(requestConvertible)
         return refreshToken().flatMap { _ in response }
     }
@@ -51,7 +51,7 @@ class Manager: RxManager {
 
 
 struct Logger: Opera.ObserverType {
-    func willSendRequest(alamoRequest: Alamofire.Request, requestConvertible: URLRequestConvertible){
+    func willSendRequest(_ alamoRequest: Alamofire.Request, requestConvertible: URLRequestConvertible){
         debugPrint(alamoRequest)
     }
 }
